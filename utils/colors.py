@@ -13,4 +13,7 @@ BEGE_LIGHT = '#eca36d'
 DARK_RED = '#6a2623'
 LIGHT_BLACK = '#1b1e26'
 
+#Hover effect
+PINK_WHITE = '#e6bdba'
+BEGE_HOVER = '#ffb985'
 

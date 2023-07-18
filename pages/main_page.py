@@ -8,6 +8,7 @@ from utils.measures import SCREEN_HEIGHT, SCREEN_WIDTH
 from utils.fonts import *
 from utils.constants import *
 from controls.effects import gradient_effect, shadow
+from controls.animations import animation
 
 
 class SecondPage:
@@ -24,29 +25,24 @@ class SecondPage:
         self.icon_neutral = ICON_NEUTRAL
         self.icon_dislike = ICON_DISLIKE
         self.icon_broken_heart = ICON_BROKEN_HEART
+        self.animated_container = None
+        self.show_synopsis = False
 
-    def on_click_button(self):
-        page = self.screen.get_page()
+    def update_card(self):
 
-        page.route = "/second_page"
-        page.go(page.route)
+        synopsis = Text("Synopsis - bla bla bla bla bla bla bla bla bla bla bla bla bla",
+                        text_align="CENTER",
+                        font_family=DEFAULT,
+                        width=0.9 * SCREEN_WIDTH,
+                        size=15,
+                        color=BLACK)
 
-    def build(self):
-        discover_txt = ft.Container(
-                            Text("Discover",
-                                font_family=DEFAULT,
-                                size=35,
-                                color=WHITE),
-                            margin=10
-                        )
-
-        poster = ft.Image(src=self.image_dummy_poster_path,
-                          width=0.9 * SCREEN_WIDTH)
         title = Text("The Great Gatsby",
                      width=0.9 * SCREEN_WIDTH,
                      text_align="CENTER",
                      font_family=DEFAULT,
                      size=25,
+                     weight=ft.FontWeight.BOLD,
                      color=BLACK)
 
         genres = Text("Drama . Comedy",
@@ -56,18 +52,66 @@ class SecondPage:
                       size=15,
                       color=BLACK)
 
-        card_movie = ft.Column(controls=[poster, title, genres],
-                               alignment=ft.alignment.center)
+        content_card_movie = ft.Column(controls=[synopsis, title, genres],
+                                       alignment=ft.alignment.center)
 
-        c = ft.Container(content=card_movie,
-                         padding=0,
-                         width=0.7 * SCREEN_WIDTH,
-                         height=0.55 * SCREEN_HEIGHT,
-                         margin= 0.1*SCREEN_WIDTH,
-                         alignment=ft.alignment.center,
-                         bgcolor=BEGE_LIGHT,
-                         border_radius=30,
-                         )
+        if self.show_synopsis:
+            return ft.Container(content=ft.Card(content=content_card_movie,
+                                                elevation=30,
+                                                color=BEGE_LIGHT,
+                                                width=0.8 * SCREEN_WIDTH,
+                                                height=0.55 * SCREEN_HEIGHT,
+                                                ),
+                                padding=0,
+                                alignment=ft.alignment.center,
+                                on_click=self.on_click_card
+                                )
+        else:
+            poster = ft.Row(controls=[ft.Container(content=
+                                                   ft.Image(src=self.image_dummy_poster_path,
+                                                            width=0.65 * SCREEN_WIDTH,
+                                                            ),
+                                                   margin=5)],
+                            alignment=ft.MainAxisAlignment.CENTER
+                            )
+
+            content_card_movie = ft.Column(controls=[poster, title, genres],
+                                           alignment=ft.alignment.center)
+
+            return ft.Container(content=ft.Card(content=content_card_movie,
+                                                elevation=30,
+                                                color=BEGE_LIGHT,
+                                                width=0.8 * SCREEN_WIDTH,
+                                                height=0.55 * SCREEN_HEIGHT,
+                                                ),
+                                padding=0,
+                                alignment=ft.alignment.center,
+                                on_click=self.on_click_card
+                                )
+
+    def on_click_card(self, e):
+        page = self.screen.get_page()
+        self.show_synopsis = not self.show_synopsis
+        self.animated_container.content = self.update_card()
+        page.update()
+
+    def build(self):
+        discover_txt = ft.Container(
+            Text("Discover",
+                 font_family=DEFAULT,
+                 size=30,
+                 weight=ft.FontWeight.BOLD,
+                 color=WHITE),
+            margin=10
+        )
+
+        card_movie = self.update_card()
+
+        c = ft.Row(controls=[card_movie],
+                   alignment=ft.MainAxisAlignment.CENTER
+                   )
+
+        self.animated_container = animation(c)
 
         love = CircleButton(self.icon_love)
         like = CircleButton(self.icon_like)
@@ -75,19 +119,17 @@ class SecondPage:
         dislike = CircleButton(self.icon_dislike)
         hate = CircleButton(self.icon_broken_heart)
 
-        button_menu = ft.Container(ft.Row(controls=[hate, dislike, neutral, like, love]),
+        button_menu = ft.Container(ft.Row(controls=[hate, dislike, neutral, like, love],
+                                          alignment=ft.MainAxisAlignment.SPACE_EVENLY),
                                    width=SCREEN_WIDTH,
                                    padding=0,
-                                   alignment=ft.alignment.center,
-                                   margin=0.05*SCREEN_WIDTH)
+                                   margin=0.05 * SCREEN_WIDTH)
 
-        content = ft.Container(content=ft.Column(controls=[discover_txt, c, button_menu]),
+        content = ft.Container(content=ft.Column(controls=[discover_txt, self.animated_container, button_menu]),
                                bgcolor=DARK_RED,
                                padding=ft.padding.only(left=0),
                                width=SCREEN_WIDTH,
                                height=SCREEN_HEIGHT,
                                shadow=shadow)
 
-        grad = gradient_effect(content)
-
-        return grad
+        return content

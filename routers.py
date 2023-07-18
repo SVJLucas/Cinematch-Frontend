@@ -23,7 +23,7 @@ class Router:
         hp = ft.View("/homepage", [home.build()])
         page.views.append(hp)
 
-    def init_second_page(self):
+    def init_main_page(self):
         page = self.screen.get_page()
 
         second_page = SecondPage(self.screen)
@@ -38,7 +38,7 @@ class Router:
             self.init_homepage()
 
         if page.route == "/main_page":
-            self.init_second_page()
+            self.init_main_page()
 
     def rout_init(self, route: str):
         page = self.screen.get_page()
