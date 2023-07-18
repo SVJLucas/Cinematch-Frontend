@@ -27,7 +27,7 @@ def LargeButton(text: str, on_click=None):
                     ft.MaterialState.FOCUSED: RED,
                     ft.MaterialState.DEFAULT: WHITE,
                 },
-                bgcolor={ft.MaterialState.HOVERED: PINK_WHITE, ft.MaterialState.FOCUSED: PINK_WHITE, "": ft.colors.WHITE},
+                bgcolor={ft.MaterialState.HOVERED: PINK_WHITE, ft.MaterialState.FOCUSED: PINK_WHITE, "": WHITE},
                 padding={ft.MaterialState.DEFAULT: 20,
                          ft.MaterialState.HOVERED: 21,
                          },
@@ -70,8 +70,30 @@ def CircleButton(src, onclick=None):
                           )
 
 
-'''
-def CircleButton(src, onclick=None):
-    return FloatingActionButton(content=ft.Image(src=src), bgcolor=BEGE_LIGHT,
-                                shape=ft.CircleBorder())
-'''
+def GenreButton(text: str, on_click=None):
+    return ElevatedButton(
+        content=Text(text,
+                     font_family=DEFAULT,
+                     color=WHITE,
+                     size=20),
+        width=0.3 * SCREEN_WIDTH,
+        on_click=on_click,
+        style=ft.ButtonStyle(
+            color={
+                ft.MaterialState.HOVERED: RED,
+                ft.MaterialState.FOCUSED: RED,
+                ft.MaterialState.DEFAULT: DARK_RED,
+            },
+            bgcolor={ft.MaterialState.HOVERED: RED_LIGHT, ft.MaterialState.FOCUSED: RED_LIGHT, "": DARK_RED},
+            padding={ft.MaterialState.DEFAULT: 10,
+                     ft.MaterialState.HOVERED: 11,
+                     },
+            overlay_color=ft.colors.TRANSPARENT,
+            elevation={"pressed": 0, "": 20},
+            animation_duration=500,
+            shape={
+                ft.MaterialState.HOVERED: RoundedRectangleBorder(radius=22),
+                ft.MaterialState.DEFAULT: RoundedRectangleBorder(radius=20),
+            },
+        )
+    )

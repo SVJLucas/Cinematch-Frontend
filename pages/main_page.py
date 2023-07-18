@@ -9,9 +9,9 @@ from utils.fonts import *
 from utils.constants import *
 from controls.effects import gradient_effect, shadow
 from controls.animations import animation
+from controls.headers import header_discover
 
-
-class SecondPage:
+class MainPage:
 
     def __init__(self, screen):
         """
@@ -96,14 +96,7 @@ class SecondPage:
         page.update()
 
     def build(self):
-        discover_txt = ft.Container(
-            Text("Discover",
-                 font_family=DEFAULT,
-                 size=30,
-                 weight=ft.FontWeight.BOLD,
-                 color=WHITE),
-            margin=10
-        )
+        discover_txt = header_discover()
 
         card_movie = self.update_card()
 

@@ -25,6 +25,12 @@ class HomePage:
         page.route = "/main_page"
         page.go(page.route)
 
+    def on_click_sign_up(self, e):
+        page = self.screen.get_page()
+
+        page.route = "/tutorial_page"
+        page.go(page.route)
+
     def build(self):
         login = ft.Row(
             controls=[LargeButton("Login", on_click=self.on_click_button)],
@@ -32,7 +38,7 @@ class HomePage:
         )
 
         signup = ft.Row(
-            controls=[LargeButton("Sign up")],
+            controls=[LargeButton("Sign up", on_click=self.on_click_sign_up)],
             alignment=ft.MainAxisAlignment.CENTER
         )
 
