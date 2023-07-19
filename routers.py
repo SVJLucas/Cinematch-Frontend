@@ -2,6 +2,7 @@ import flet as ft
 from screen import Screen
 from pages.homepage import HomePage
 from pages.main_page import MainPage
+from pages.choices_page import ChoicesPage
 from pages.tutorial_page import TutorialPage
 
 
@@ -38,6 +39,13 @@ class Router:
 
         page.views.append(ft.View("/tutorial_page", [second_page.build()]))
 
+    def init_choices_page(self):
+        page = self.screen.get_page()
+
+        second_page = ChoicesPage(self.screen)
+
+        page.views.append(ft.View("/choices_page", [second_page.build()]))
+
     def route_change(self, route):
         page = self.screen.get_page()
 
@@ -50,6 +58,9 @@ class Router:
 
         if page.route == "/tutorial_page":
             self.init_tutorial_page()
+
+        if page.route == "/choices_page":
+            self.init_choices_page()
 
     def rout_init(self, route: str):
         page = self.screen.get_page()

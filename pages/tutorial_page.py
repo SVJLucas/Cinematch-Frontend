@@ -6,84 +6,98 @@ from utils.colors import *
 from utils.measures import SCREEN_WIDTH, SCREEN_HEIGHT
 from utils.constants import movie_genres
 from controls.headers import header_discover
-from controls.buttons import GenreButton, NextButton
+from controls.buttons import GenreButton, NextButton, CircleButton
+
+from utils.constants import ICON_LOVE, ICON_LIKE, ICON_NEUTRAL, ICON_DISLIKE, ICON_BROKEN_HEART
 
 
 class TutorialPage:
 
     def __init__(self, screen):
         self.screen = screen
-        self.button_pressed = {}
-        self.genres_selected = []
+        self.icon_love = ICON_LOVE
+        self.icon_like = ICON_LIKE
+        self.icon_neutral = ICON_NEUTRAL
+        self.icon_dislike = ICON_DISLIKE
+        self.icon_broken_heart = ICON_BROKEN_HEART
 
-        for genre in movie_genres:
-            self.button_pressed[genre] = 0
-
-    def on_click_genre_button(self, e):
+    def on_click_next_button(self, e):
         page = self.screen.get_page()
-        genre = e.control.content.value
-        self.button_pressed[genre] = not self.button_pressed[genre]
-        # Implementing toggle functionality
-        if self.button_pressed[genre]:
-            self.genres_selected.append(genre)
-            e.control.style.bgcolor = RED_LIGHT
-        else:
-            self.genres_selected.remove(genre)
-            e.control.style.bgcolor = BEGE_DARK
-
-        page.update()
+        page.route = "/main_page"
+        page.go(page.route)
 
     def build(self):
         discover = header_discover()
 
-        title = Text("What kind of movie do you want to watch today?",
-                     font_family=DEFAULT,
-                     size=30,
-                     color=BLACK,
-                     italic=True,
-                     weight=ft.FontWeight.BOLD,
-                     text_align="CENTER"
-                     )
+        title = ft.Row(controls=[Text("How to start...",
+                                      font_family=DEFAULT,
+                                      size=30,
+                                      color=BLACK,
+                                      italic=True,
+                                      weight=ft.FontWeight.BOLD,
+                                      text_align="CENTER"
+                                      )],
+                       alignment=ft.MainAxisAlignment.CENTER
+                       )
 
-        list_content = [title]
-        button_accumulator = []
-        for i, genre in enumerate(movie_genres):
+        subtitle = ft.Row(controls=[Text("Our buttons",
+                                      font_family=DEFAULT,
+                                      size=20,
+                                      color=BLACK,
+                                      weight=ft.FontWeight.BOLD,
+                                      text_align="CENTER"
+                                      )],
+                       alignment=ft.MainAxisAlignment.CENTER
+                       )
+        love = ft.Row(controls=[ft.Image(src=self.icon_love), Text("Love this movie!",
+                                                                   font_family=DEFAULT,
+                                                                   size=20,
+                                                                   color=BLACK)],
+                      alignment=ft.MainAxisAlignment.START)
 
-            if i % 2 == 0 and i >= 2:
-                list_content.append(ft.Row(controls=button_accumulator.copy(),
-                                           alignment=ft.MainAxisAlignment.SPACE_EVENLY),
-                                    )
-                button_accumulator = []
+        like = ft.Row(controls=[ft.Image(src=self.icon_like), Text("I Like the movie",
+                                                                   font_family=DEFAULT,
+                                                                   size=20,
+                                                                   color=BLACK)],
+                      alignment=ft.MainAxisAlignment.START)
 
-            button_accumulator.append(GenreButton(genre,
-                                                  on_click=self.on_click_genre_button,
-                                                  bg_color=BEGE_DARK))
+        neutral = ft.Row(controls=[ft.Image(src=self.icon_neutral), Text("I haven't watched",
+                                                                   font_family=DEFAULT,
+                                                                   size=20,
+                                                                   color=BLACK)],
+                      alignment=ft.MainAxisAlignment.START)
 
-        list_content.append(ft.Row(controls=button_accumulator.copy(),
-                                   alignment=ft.MainAxisAlignment.SPACE_EVENLY),
-                            )
+        dislike = ft.Row(controls=[ft.Image(src=self.icon_dislike), Text("I didn't like the movie",
+                                                                   font_family=DEFAULT,
+                                                                   size=20,
+                                                                   color=BLACK)],
+                      alignment=ft.MainAxisAlignment.START)
 
-        white_space = ft.Container(height=0.15*SCREEN_HEIGHT)
+        hate = ft.Row(controls=[ft.Image(src=self.icon_broken_heart), Text("I hated the movie",
+                                                                   font_family=DEFAULT,
+                                                                   size=20,
+                                                                   color=BLACK)],
+                      alignment=ft.MainAxisAlignment.START
+                      )
 
-        list_content.append(white_space)
+        list_icons = ft.Container(content=ft.Column(controls=[love, like, neutral, dislike, hate]),
+                                  margin=0.1*SCREEN_WIDTH)
 
-        next_button = ft.Row(controls=[NextButton("Next")],
+        next_button = ft.Row(controls=[NextButton("Next", on_click=self.on_click_next_button)],
                              alignment=ft.MainAxisAlignment.CENTER)
 
-        list_content.append(next_button)
-
-        content_tutorial_card = ft.Container(content=ft.Column(controls=list_content),
-                                             width=0.7 * SCREEN_WIDTH)
-
+        content_tutorial_card = ft.Container(content=ft.Column(controls=[title, subtitle, list_icons, next_button]),
+                                             width=0.7 * SCREEN_WIDTH
+                                             )
 
         tutorial_card = Container(content=Card(content=content_tutorial_card,
                                                elevation=30,
-                                               color=BEGE_LIGHT,
+                                               color=WHITE,
                                                width=0.8 * SCREEN_WIDTH,
                                                height=0.55 * SCREEN_HEIGHT,
                                                ),
                                   padding=0,
-                                  alignment=ft.alignment.center,
+                                  alignment=ft.alignment.center
                                   )
 
         content = Container(content=ft.Column(controls=[discover, tutorial_card]),

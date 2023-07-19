@@ -28,7 +28,7 @@ class HomePage:
     def on_click_sign_up(self, e):
         page = self.screen.get_page()
 
-        page.route = "/tutorial_page"
+        page.route = "/choices_page"
         page.go(page.route)
 
     def build(self):
