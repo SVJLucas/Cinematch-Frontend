@@ -10,3 +10,5 @@ ICON_LIKE = "./assets/icons/like.png"
 ICON_NEUTRAL = "./assets/icons/neutral.png"
 ICON_DISLIKE = "./assets/icons/dislike.png"
 ICON_BROKEN_HEART = "./assets/icons/broken_heart.png"
+
+movie_genres = ["Drama", "Comedy", "Musical", "Kids", "Action", "Thriller"]
