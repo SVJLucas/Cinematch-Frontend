@@ -22,7 +22,7 @@ class HomePage:
     def on_click_button(self, e):
         page = self.screen.get_page()
 
-        page.route = "/main_page"
+        page.route = "/login_page"
         page.go(page.route)
 
     def on_click_sign_up(self, e):

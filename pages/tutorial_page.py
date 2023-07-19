@@ -41,47 +41,47 @@ class TutorialPage:
                        )
 
         subtitle = ft.Row(controls=[Text("Our buttons",
-                                      font_family=DEFAULT,
-                                      size=20,
-                                      color=BLACK,
-                                      weight=ft.FontWeight.BOLD,
-                                      text_align="CENTER"
-                                      )],
-                       alignment=ft.MainAxisAlignment.CENTER
-                       )
-        love = ft.Row(controls=[ft.Image(src=self.icon_love), Text("Love this movie!",
+                                         font_family=DEFAULT,
+                                         size=20,
+                                         color=BLACK,
+                                         weight=ft.FontWeight.BOLD,
+                                         text_align="CENTER"
+                                         )],
+                          alignment=ft.MainAxisAlignment.CENTER
+                          )
+        love = ft.Row(controls=[ft.Image(src=self.icon_love), Text("Loved this movie!",
                                                                    font_family=DEFAULT,
                                                                    size=20,
                                                                    color=BLACK)],
                       alignment=ft.MainAxisAlignment.START)
 
-        like = ft.Row(controls=[ft.Image(src=self.icon_like), Text("I Like the movie",
+        like = ft.Row(controls=[ft.Image(src=self.icon_like), Text("I Liked this movie",
                                                                    font_family=DEFAULT,
                                                                    size=20,
                                                                    color=BLACK)],
                       alignment=ft.MainAxisAlignment.START)
 
         neutral = ft.Row(controls=[ft.Image(src=self.icon_neutral), Text("I haven't watched",
-                                                                   font_family=DEFAULT,
-                                                                   size=20,
-                                                                   color=BLACK)],
-                      alignment=ft.MainAxisAlignment.START)
+                                                                         font_family=DEFAULT,
+                                                                         size=20,
+                                                                         color=BLACK)],
+                         alignment=ft.MainAxisAlignment.START)
 
-        dislike = ft.Row(controls=[ft.Image(src=self.icon_dislike), Text("I didn't like the movie",
-                                                                   font_family=DEFAULT,
-                                                                   size=20,
-                                                                   color=BLACK)],
-                      alignment=ft.MainAxisAlignment.START)
+        dislike = ft.Row(controls=[ft.Image(src=self.icon_dislike), Text("I didn't like this movie",
+                                                                         font_family=DEFAULT,
+                                                                         size=20,
+                                                                         color=BLACK)],
+                         alignment=ft.MainAxisAlignment.START)
 
-        hate = ft.Row(controls=[ft.Image(src=self.icon_broken_heart), Text("I hated the movie",
-                                                                   font_family=DEFAULT,
-                                                                   size=20,
-                                                                   color=BLACK)],
+        hate = ft.Row(controls=[ft.Image(src=self.icon_broken_heart), Text("I hated this movie",
+                                                                           font_family=DEFAULT,
+                                                                           size=20,
+                                                                           color=BLACK)],
                       alignment=ft.MainAxisAlignment.START
                       )
 
         list_icons = ft.Container(content=ft.Column(controls=[love, like, neutral, dislike, hate]),
-                                  margin=0.1*SCREEN_WIDTH)
+                                  margin=0.1 * SCREEN_WIDTH)
 
         next_button = ft.Row(controls=[NextButton("Next", on_click=self.on_click_next_button)],
                              alignment=ft.MainAxisAlignment.CENTER)
