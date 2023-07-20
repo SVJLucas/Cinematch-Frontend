@@ -18,6 +18,7 @@ class LoginPage:
         self.screen = screen
         self.image_logo_path = IMAGE_LOGO_PATH
         self.image_homepage_art_path = IMAGE_HOMEPAGE_ART_PATH
+        self.image_footer = IMAGE_LOGIN
 
     def on_click_log_in(self, e):
         page = self.screen.get_page()
@@ -53,14 +54,14 @@ class LoginPage:
                                            weight=ft.FontWeight.BOLD)],
                             alignment=ft.MainAxisAlignment.CENTER)
 
-        email_box = ft.Row(controls=[TextField(label="email",
-                                               hint_text="email address",
+        email_box = ft.Row(controls=[TextField(label="Email",
+                                               hint_text="Email address",
                                                icon=ft.icons.ACCOUNT_CIRCLE)],
                            alignment=ft.MainAxisAlignment.CENTER,
                            )
 
-        password_box = ft.Row(controls=[TextField(label="password",
-                                                  hint_text="enter password...",
+        password_box = ft.Row(controls=[TextField(label="Password",
+                                                  hint_text="Enter password...",
                                                   password=True,
                                                   icon=ft.icons.KEY)],
                               alignment=ft.MainAxisAlignment.CENTER,
@@ -86,6 +87,7 @@ class LoginPage:
         )
 
         col = ft.Column(width=SCREEN_WIDTH,
+                        height=0.75 * SCREEN_HEIGHT,
                         controls=[white_logo,
                                   empty_space,
                                   login_text,
@@ -98,7 +100,14 @@ class LoginPage:
                         alignment=ft.alignment.center
                         )
 
-        c = ft.Container(content=col,
+        lower_col = ft.Container(content=ft.Column(controls=[ft.Row(controls=[Image(src=self.image_footer)],
+                                                                    alignment=ft.MainAxisAlignment.CENTER)],
+                                                   alignment=ft.MainAxisAlignment.START),
+                                 )
+
+        concat_col = ft.Column(controls=[col, lower_col])
+
+        c = ft.Container(content=concat_col,
                          bgcolor=DARK_RED,
                          padding=0,
                          width=SCREEN_WIDTH,
