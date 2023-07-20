@@ -5,7 +5,7 @@ from utils.fonts import *
 from utils.colors import *
 from utils.measures import SCREEN_WIDTH, SCREEN_HEIGHT
 from utils.constants import movie_genres
-from controls.headers import header_discover
+from controls.headers import header_discover, footer_logo
 from controls.buttons import GenreButton, NextButton, CircleButton
 
 from utils.constants import ICON_LOVE, ICON_LIKE, ICON_NEUTRAL, ICON_DISLIKE, ICON_BROKEN_HEART
@@ -100,7 +100,15 @@ class TutorialPage:
                                   alignment=ft.alignment.center
                                   )
 
-        content = Container(content=ft.Column(controls=[discover, tutorial_card]),
+        column_upper = ft.Column(controls=[discover, tutorial_card],
+                                 height=0.8*SCREEN_HEIGHT)
+
+        column_lower = ft.Column(controls=[footer_logo()],
+                                 height=0.2 * SCREEN_HEIGHT,
+                                 alignment=ft.MainAxisAlignment.CENTER
+                                 )
+
+        content = Container(content=ft.Column(controls=[column_upper, column_lower]),
                             bgcolor=DARK_RED,
                             padding=ft.padding.only(left=0),
                             width=SCREEN_WIDTH,

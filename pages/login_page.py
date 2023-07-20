@@ -47,11 +47,11 @@ class LoginPage:
                             alignment=ft.MainAxisAlignment.CENTER)
 
         login_text = ft.Row(controls=[Text("Login",
-                            size=30,
-                            color=WHITE,
-                            font_family=DEFAULT,
-                            weight=ft.FontWeight.BOLD)],
-                           alignment=ft.MainAxisAlignment.CENTER)
+                                           size=30,
+                                           color=WHITE,
+                                           font_family=DEFAULT,
+                                           weight=ft.FontWeight.BOLD)],
+                            alignment=ft.MainAxisAlignment.CENTER)
 
         email_box = ft.Row(controls=[TextField(label="email",
                                                hint_text="email address",
@@ -73,13 +73,12 @@ class LoginPage:
             alignment=ft.MainAxisAlignment.CENTER
         )
 
-
         sign_up_text = ft.Row(controls=[Text("Don't have an account yet? Sign up",
-                                           size=15,
-                                           color=WHITE,
-                                           font_family=DEFAULT,
-                                           weight=ft.FontWeight.BOLD)],
-                            alignment=ft.MainAxisAlignment.CENTER)
+                                             size=15,
+                                             color=WHITE,
+                                             font_family=DEFAULT,
+                                             weight=ft.FontWeight.BOLD)],
+                              alignment=ft.MainAxisAlignment.CENTER)
 
         sign_up_button = ft.Row(
             controls=[NextButton("Sign up", on_click=self.on_click_log_in)],

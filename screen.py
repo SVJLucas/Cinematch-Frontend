@@ -10,7 +10,7 @@ class Screen:
     def set_page(self, page: ft.Page):
         page.window_width = self.width
         page.window_height = self.height
-        page.window_resizable = False
+        page.window_resizable = True
         self._page = page
 
     def get_page(self) -> ft.Page:

@@ -5,7 +5,7 @@ from utils.fonts import *
 from utils.colors import *
 from utils.measures import SCREEN_WIDTH, SCREEN_HEIGHT
 from utils.constants import movie_genres
-from controls.headers import header_discover
+from controls.headers import header_discover, footer_logo
 from controls.buttons import GenreButton, NextButton
 
 
@@ -89,10 +89,21 @@ class ChoicesPage:
                                  padding=0,
                                  alignment=ft.alignment.center,
                                  )
+        footer = footer_logo()
 
-        content = Container(content=ft.Column(controls=[discover, choices_card]),
+        column_upper = ft.Column(controls=[discover, choices_card],
+                                 height=0.8*SCREEN_HEIGHT,
+                                )
+
+        column_lower = ft.Column(controls=[footer],
+                                 height=0.2*SCREEN_HEIGHT,
+                                 alignment=ft.MainAxisAlignment.CENTER
+                                 )
+
+        content = Container(content=ft.Column(controls=[column_upper, column_lower],
+                                              height=SCREEN_HEIGHT,
+                                              ),
                             bgcolor=DARK_RED,
-                            padding=ft.padding.only(left=0),
                             width=SCREEN_WIDTH,
                             height=SCREEN_HEIGHT,
                             )
