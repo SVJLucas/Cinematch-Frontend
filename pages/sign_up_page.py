@@ -9,7 +9,7 @@ from controls.inputs import TextField
 from utils.fonts import DEFAULT
 
 
-class LoginPage:
+class SignUpPage:
 
     def __init__(self, screen):
         """
@@ -53,12 +53,12 @@ class LoginPage:
                                                    )],
                             alignment=ft.MainAxisAlignment.CENTER)
 
-        login_text = ft.Row(controls=[Text("Login",
-                                           size=30,
-                                           color=WHITE,
-                                           font_family=DEFAULT,
-                                           weight=ft.FontWeight.BOLD)],
-                            alignment=ft.MainAxisAlignment.CENTER)
+        sign_up_text = ft.Row(controls=[Text("Sign up",
+                                             size=30,
+                                             color=WHITE,
+                                             font_family=DEFAULT,
+                                             weight=ft.FontWeight.BOLD)],
+                              alignment=ft.MainAxisAlignment.CENTER)
 
         email_box = ft.Row(controls=[TextField(label="Email",
                                                hint_text="Email address",
@@ -66,42 +66,53 @@ class LoginPage:
                            alignment=ft.MainAxisAlignment.CENTER,
                            )
 
+        username_box = ft.Row(controls=[TextField(label="Username",
+                                                  hint_text="Choose a username...",
+                                                  icon=ft.icons.ACCOUNT_CIRCLE)],
+                              alignment=ft.MainAxisAlignment.CENTER,
+                              )
+
         password_box = ft.Row(controls=[TextField(label="Password",
                                                   hint_text="Enter password...",
                                                   password=True,
                                                   icon=ft.icons.KEY)],
                               alignment=ft.MainAxisAlignment.CENTER,
                               )
-
-        empty_space = ft.Container(width=SCREEN_WIDTH, height=0.10 * SCREEN_HEIGHT)
-
-        login = ft.Row(
-            controls=[NextButton("Login", on_click=self.on_click_log_in)],
-            alignment=ft.MainAxisAlignment.CENTER
-        )
-
-        sign_up_text = ft.Row(controls=[Text("Don't have an account yet? Sign up",
-                                             size=15,
-                                             color=WHITE,
-                                             font_family=DEFAULT,
-                                             weight=ft.FontWeight.BOLD)],
-                              alignment=ft.MainAxisAlignment.CENTER)
+        password_confirm_box = ft.Row(controls=[TextField(label="Confirm Password",
+                                                          hint_text="Confirm password...",
+                                                          password=True,
+                                                          icon=ft.icons.KEY)],
+                                      alignment=ft.MainAxisAlignment.CENTER,
+                                      )
 
         sign_up_button = ft.Row(
             controls=[NextButton("Sign up", on_click=self.on_click_log_in)],
             alignment=ft.MainAxisAlignment.CENTER
         )
 
+        login_text = ft.Row(controls=[Text("Already have an account? Sign in",
+                                           size=15,
+                                           color=WHITE,
+                                           font_family=DEFAULT,
+                                           weight=ft.FontWeight.BOLD)],
+                            alignment=ft.MainAxisAlignment.CENTER)
+
+        login_button = ft.Row(
+            controls=[NextButton("Log in", on_click=self.on_click_log_in)],
+            alignment=ft.MainAxisAlignment.CENTER
+        )
+
         col = ft.Column(width=SCREEN_WIDTH,
                         height=0.75 * SCREEN_HEIGHT,
                         controls=[white_logo,
-                                  empty_space,
-                                  login_text,
-                                  email_box,
-                                  password_box,
-                                  login,
                                   sign_up_text,
+                                  email_box,
+                                  username_box,
+                                  password_box,
+                                  password_confirm_box,
                                   sign_up_button,
+                                  login_text,
+                                  login_button,
                                   ],
                         alignment=ft.alignment.center
                         )

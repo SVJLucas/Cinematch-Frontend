@@ -28,7 +28,7 @@ class HomePage:
     def on_click_sign_up(self, e):
         page = self.screen.get_page()
 
-        page.route = "/choices_page"
+        page.route = "/sign_up_page"
         page.go(page.route)
 
     def build(self):
@@ -62,7 +62,8 @@ class HomePage:
                                                    )],
                             alignment=ft.MainAxisAlignment.CENTER)
 
-        empty_space = ft.Container(width=SCREEN_WIDTH, height=0.15 * SCREEN_HEIGHT)
+        empty_space = ft.Container(width=SCREEN_WIDTH, height=0.1 * SCREEN_HEIGHT)
+        space_after_img = ft.Container(width=SCREEN_WIDTH, height=0.05 * SCREEN_HEIGHT)
 
         img_center = Image(src=self.image_homepage_art_path)
 
@@ -70,6 +71,7 @@ class HomePage:
                         controls=[white_logo,
                                   empty_space,
                                   img_center,
+                                  space_after_img,
                                   login,
                                   signup
                                   ],

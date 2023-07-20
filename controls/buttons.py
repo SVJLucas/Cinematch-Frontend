@@ -35,8 +35,8 @@ def LargeButton(text: str, on_click=None):
             elevation={"pressed": 0, "": 20},
             animation_duration=500,
             shape={
-                ft.MaterialState.HOVERED: RoundedRectangleBorder(radius=22),
-                ft.MaterialState.DEFAULT: RoundedRectangleBorder(radius=20),
+                ft.MaterialState.HOVERED: RoundedRectangleBorder(radius=32),
+                ft.MaterialState.DEFAULT: RoundedRectangleBorder(radius=30),
             },
         )
     )
