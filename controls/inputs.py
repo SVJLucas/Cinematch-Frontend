@@ -4,7 +4,7 @@ from utils.colors import *
 from utils.fonts import *
 
 
-def TextField(label=None, hint_text=None, password=False, icon=None):
+def TextField(label=None, hint_text=None, password=False, icon=None, on_submit=None):
     return ft.TextField(label=label,
                         hint_text=hint_text,
                         bgcolor=ft.colors.TRANSPARENT,
@@ -15,4 +15,5 @@ def TextField(label=None, hint_text=None, password=False, icon=None):
                         color=WHITE,
                         cursor_color=WHITE,
                         label_style=ft.TextStyle(color=WHITE, font_family=DEFAULT),
-                        prefix_icon=icon)
+                        prefix_icon=icon,
+                        on_submit=on_submit)

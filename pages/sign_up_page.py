@@ -31,14 +31,14 @@ class SignUpPage:
             "password": self.password_field.value
         }
 
-        response = requests.post(USERS_ROUTE, json=data)
+        response = requests.post(USERS_URL, json=data)
 
         if response.ok:
             data = {
                 "username": self.email_field.value,
                 "password": self.password_field.value
             }
-            response = requests.post(LOGIN_USERS_ROUTE, data=data)
+            response = requests.post(LOGIN_USERS_URL, data=data)
             token = response.json()
             if response.ok:
                 page.session.set("auth_header",
@@ -118,7 +118,8 @@ class SignUpPage:
         password_confirm_box = ft.Row(controls=[TextField(label="Confirm Password",
                                                           hint_text="Confirm password...",
                                                           password=True,
-                                                          icon=ft.icons.KEY)],
+                                                          icon=ft.icons.KEY,
+                                                          on_submit=self.on_click_sign_up)],
                                       alignment=ft.MainAxisAlignment.CENTER,
                                       )
 

@@ -29,7 +29,7 @@ class LoginPage:
             "username": self.email_field.value,
             "password": self.password_field.value
         }
-        response = requests.post(LOGIN_USERS_ROUTE, data=data)
+        response = requests.post(LOGIN_USERS_URL, data=data)
         token = response.json()
 
         if response.ok:
@@ -90,7 +90,8 @@ class LoginPage:
         self.password_field = TextField(label="Password",
                                         hint_text="Enter password...",
                                         password=True,
-                                        icon=ft.icons.KEY)
+                                        icon=ft.icons.KEY,
+                                        on_submit=self.on_click_log_in)
         password_box = ft.Row(controls=[self.password_field],
                               alignment=ft.MainAxisAlignment.CENTER)
 
