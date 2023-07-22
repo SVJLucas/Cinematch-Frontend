@@ -8,6 +8,8 @@ from controls.effects import gradient_effect
 from controls.inputs import TextField
 from utils.fonts import DEFAULT
 
+import requests
+
 
 class SignUpPage:
 
@@ -23,8 +25,22 @@ class SignUpPage:
     def on_click_log_in(self, e):
         page = self.screen.get_page()
 
-        page.route = "/choices_page"
-        page.go(page.route)
+        data = {
+            "name": self.username_field.value,
+            "email": self.email_field.value,
+            "password": self.password_field.value
+        }
+
+        response = requests.post(USERS_ROUTE, json=data)
+
+        print(response.status_code, response.json())
+
+        if response.ok:
+            page.route = "/choices_page"
+            page.go(page.route)
+        else:
+            # TODO: show some invalid credentials text
+            pass
 
     def return_home(self, e):
         page = self.screen.get_page()
@@ -60,22 +76,25 @@ class SignUpPage:
                                              weight=ft.FontWeight.BOLD)],
                               alignment=ft.MainAxisAlignment.CENTER)
 
-        email_box = ft.Row(controls=[TextField(label="Email",
-                                               hint_text="Email address",
-                                               icon=ft.icons.ACCOUNT_CIRCLE)],
+        self.email_field = TextField(label="Email",
+                                     hint_text="Email address",
+                                     icon=ft.icons.ACCOUNT_CIRCLE)
+        email_box = ft.Row(controls=[self.email_field],
                            alignment=ft.MainAxisAlignment.CENTER,
                            )
 
-        username_box = ft.Row(controls=[TextField(label="Username",
-                                                  hint_text="Choose a username...",
-                                                  icon=ft.icons.ACCOUNT_CIRCLE)],
+        self.username_field = TextField(label="Username",
+                                        hint_text="Choose a username...",
+                                        icon=ft.icons.ACCOUNT_CIRCLE)
+        username_box = ft.Row(controls=[self.username_field],
                               alignment=ft.MainAxisAlignment.CENTER,
                               )
 
-        password_box = ft.Row(controls=[TextField(label="Password",
-                                                  hint_text="Enter password...",
-                                                  password=True,
-                                                  icon=ft.icons.KEY)],
+        self.password_field = TextField(label="Password",
+                                        hint_text="Enter password...",
+                                        password=True,
+                                        icon=ft.icons.KEY)
+        password_box = ft.Row(controls=[self.password_field],
                               alignment=ft.MainAxisAlignment.CENTER,
                               )
         password_confirm_box = ft.Row(controls=[TextField(label="Confirm Password",
