@@ -1,10 +1,14 @@
 # Backend routes
 
-URL = "http://127.0.0.1:8000/"
-LOGIN_ROUTE = URL + "login/"
-LOGIN_USERS_ROUTE = LOGIN_ROUTE + "users"
-USERS_ROUTE = URL + "users"
-RATINGS_ROUTE = URL + "ratings"
+URL_BASE = "http://127.0.0.1:8000/"
+LOGIN_URL = URL_BASE + "login/"
+LOGIN_USERS_URL = LOGIN_URL + "users/"
+USERS_URL = URL_BASE + "users/"
+MOVIES_URL = URL_BASE + "movies/"
+GENRES_URL = URL_BASE + "genres/"
+GENRES_BY_MOVIE_URL = GENRES_URL + "by_movie/"
+RATINGS_URL = URL_BASE + "ratings/"
+MOVIES_GENRES_URL = URL_BASE + "moviesgenres/"
 
 #Images paths
 

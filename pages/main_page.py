@@ -1,8 +1,10 @@
 import flet as ft
+import time
 
 from flet import FloatingActionButton, Text
 from controls.buttons import CircleButton, CircleButtonBase
 from flet import Image, Container, Row, Column
+from utils.database import get_non_rated_movie
 from utils.colors import *
 from utils.measures import SCREEN_HEIGHT, SCREEN_WIDTH
 from utils.fonts import *
@@ -15,9 +17,7 @@ import requests
 
 
 def send_rating(data, e):
-    movie_id = "-N__dx6H_A782DxPRA_A"
-    data["movie_id"] = movie_id
-    response = requests.post(RATINGS_ROUTE, headers=e.page.session.get("auth_header"), json=data)
+    response = requests.post(RATINGS_URL, headers=e.page.session.get("auth_header"), json=data)
     print(response.status_code, response.json())
 
 
@@ -29,7 +29,13 @@ class MainPage:
         """
         self.screen = screen
 
-        self.image_dummy_poster_path = IMAGE_DUMMY_POSTER_PATH
+        self.card_title = "The Great Gatsby"
+        self.card_genres = "Drama . Comedy"
+        self.card_poster = IMAGE_DUMMY_POSTER_PATH
+        self.card_movie_id = "42"
+        self.card_synopsis = "Synopsis - bla bla bla bla bla bla bla bla bla bla bla bla bla"
+        self.update_movie()
+
         self.icon_profile = ft.Icon(ft.icons.PERSON)
         self.icon_love = ICON_LOVE
         self.icon_like = ICON_LIKE
@@ -42,14 +48,14 @@ class MainPage:
 
     def update_card(self):
 
-        synopsis = Text("Synopsis - bla bla bla bla bla bla bla bla bla bla bla bla bla",
+        synopsis = Text(self.card_synopsis,
                         text_align="CENTER",
                         font_family=DEFAULT,
                         width=0.9 * SCREEN_WIDTH,
                         size=15,
                         color=BLACK)
 
-        title = Text("The Great Gatsby",
+        title = Text(self.card_title,
                      width=0.9 * SCREEN_WIDTH,
                      text_align="CENTER",
                      font_family=DEFAULT,
@@ -57,7 +63,7 @@ class MainPage:
                      weight=ft.FontWeight.BOLD,
                      color=BLACK)
 
-        genres = Text("Drama . Comedy",
+        genres = Text(self.card_genres,
                       width=0.9 * SCREEN_WIDTH,
                       text_align="CENTER",
                       font_family=DEFAULT,
@@ -80,7 +86,7 @@ class MainPage:
                                 )
         else:
             poster = ft.Row(controls=[ft.Container(content=
-                                                   ft.Image(src=self.image_dummy_poster_path,
+                                                   ft.Image(src=self.card_poster,
                                                             width=0.65 * SCREEN_WIDTH,
                                                             ),
                                                    margin=5)],
@@ -101,6 +107,14 @@ class MainPage:
                                 on_click=self.on_click_card
                                 )
 
+    def update_movie(self):
+        movie = get_non_rated_movie()
+        self.card_title = movie["title"]
+        self.card_genres = ' . '.join([genre["name"] for genre in movie["genres"]])
+        self.card_poster = movie["image_url"]
+        self.card_synopsis = movie["synopsis"]
+        self.card_movie_id = movie["movie_id"]
+
     def on_click_card(self, e):
         page = self.screen.get_page()
         self.show_synopsis = not self.show_synopsis
@@ -115,8 +129,11 @@ class MainPage:
     def on_click_rating_wrapper(self, rating):
         def on_click_rating(e):
             page = self.screen.get_page()
-            data = {"score": rating}
+            data = {"movie_id": self.card_movie_id,
+                    "score": rating}
             send_rating(data, e)
+            time.sleep(0.2)
+            self.update_movie()
             self.animated_container.content = self.update_card()
             page.update()
 
