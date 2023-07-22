@@ -42,7 +42,7 @@ def LargeButton(text: str, on_click=None):
     )
 
 
-def CircleButton(src, onclick=None):
+def CircleButton(src, on_click=None):
     return ElevatedButton(content=ft.Image(src=src),
                           style=ft.ButtonStyle(
                               color={
@@ -67,6 +67,7 @@ def CircleButton(src, onclick=None):
                                   ft.MaterialState.DEFAULT: ft.CircleBorder(),
                               },
                           ),
+                          on_click=on_click
                           )
 
 
