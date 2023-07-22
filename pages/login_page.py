@@ -46,6 +46,12 @@ class LoginPage:
         page.route = "/homepage"
         page.go(page.route)
 
+    def on_click_go_to_sign_up(self, e):
+        page = self.screen.get_page()
+
+        page.route = "/sign_up_page"
+        page.go(page.route)
+
     def build(self):
         img = Image(src=self.image_logo_path)
 
@@ -103,7 +109,7 @@ class LoginPage:
                               alignment=ft.MainAxisAlignment.CENTER)
 
         sign_up_button = ft.Row(
-            controls=[NextButton("Sign up", on_click=self.on_click_log_in)],
+            controls=[NextButton("Sign up", on_click=self.on_click_go_to_sign_up)],
             alignment=ft.MainAxisAlignment.CENTER
         )
 
