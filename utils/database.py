@@ -11,7 +11,6 @@ def get_non_rated_movie():
         ratings = ratings.json()
 
         rated_movies = set(rating["movie_id"] for rating in ratings)
-        print("Rated movies:", rated_movies)
 
         # This should put the best movies in the end
         movies.reverse()
@@ -24,6 +23,10 @@ def get_non_rated_movie():
                 movie["genres"] = get_genres_from_movie(movie["movie_id"])
                 eligible_movie_found = True
         print("Selected movie:", movie)
+
+        if not eligible_movie_found:
+            movie["genres"] = [{"name": "You rated all available movies"}]
+
         return movie
 
 
