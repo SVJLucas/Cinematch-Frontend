@@ -20,4 +20,11 @@ ICON_NEUTRAL = "./assets/icons/neutral.png"
 ICON_DISLIKE = "./assets/icons/dislike.png"
 ICON_BROKEN_HEART = "./assets/icons/broken_heart.png"
 
+SCORE_LOVE = 5
+SCORE_LIKE = 4
+SCORE_NEUTRAL = 3
+SCORE_DISLIKE = 2
+SCORE_HATE = 1
+
 movie_genres = ["Drama", "Comedy", "Musical", "Kids", "Action", "Thriller"]
+
