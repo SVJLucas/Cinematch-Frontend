@@ -1,7 +1,7 @@
 import flet as ft
 
 from flet import FloatingActionButton, Text
-from controls.buttons import CircleButton
+from controls.buttons import CircleButton, CircleButtonBase
 from flet import Image, Container, Row, Column
 from utils.colors import *
 from utils.measures import SCREEN_HEIGHT, SCREEN_WIDTH
@@ -30,11 +30,13 @@ class MainPage:
         self.screen = screen
 
         self.image_dummy_poster_path = IMAGE_DUMMY_POSTER_PATH
+        self.icon_profile = ft.Icon(ft.icons.PERSON)
         self.icon_love = ICON_LOVE
         self.icon_like = ICON_LIKE
         self.icon_neutral = ICON_NEUTRAL
         self.icon_dislike = ICON_DISLIKE
         self.icon_broken_heart = ICON_BROKEN_HEART
+        self.icon_next = ft.Icon(ft.icons.ARROW_FORWARD)
         self.animated_container = None
         self.show_synopsis = False
 
@@ -105,30 +107,33 @@ class MainPage:
         self.animated_container.content = self.update_card()
         page.update()
 
-    def on_click_love(self, e):
+    def on_click_profile(self, e):
         page = self.screen.get_page()
-        print("aaaa")
-        data = {"score": 5}
-        send_rating(data, e)
+        page.route = "/recommendations_page"
+        page.go(page.route)
 
-    def on_click_like(self, e):
-        data = {"score": 4}
-        send_rating(data, e)
+    def on_click_rating_wrapper(self, rating):
+        def on_click_rating(e):
+            page = self.screen.get_page()
+            data = {"score": rating}
+            send_rating(data, e)
+            self.animated_container.content = self.update_card()
+            page.update()
 
-    def on_click_neutral(self, e):
-        data = {"score": 3}
-        send_rating(data, e)
+        return on_click_rating
 
-    def on_click_dislike(self, e):
-        data = {"score": 2}
-        send_rating(data, e)
-
-    def on_click_hate(self, e):
-        data = {"score": 1}
-        send_rating(data, e)
+    def on_click_skip(self, e):
+        # TODO
+        page = self.screen.get_page()
+        # data = {"score": 5}
+        # send_rating(data, e)
 
     def build(self):
         discover_txt = header_discover()
+        profile_button = CircleButtonBase(content=self.icon_profile,
+                                          on_click=self.on_click_profile)
+        header = ft.Row(controls=[discover_txt, profile_button],
+                        alignment=ft.MainAxisAlignment.SPACE_BETWEEN)
 
         card_movie = self.update_card()
 
@@ -138,11 +143,11 @@ class MainPage:
 
         self.animated_container = animation(c)
 
-        love = CircleButton(self.icon_love, on_click=self.on_click_love)
-        like = CircleButton(self.icon_like, on_click=self.on_click_like)
-        neutral = CircleButton(self.icon_neutral, on_click=self.on_click_neutral)
-        dislike = CircleButton(self.icon_dislike, on_click=self.on_click_dislike)
-        hate = CircleButton(self.icon_broken_heart, on_click=self.on_click_hate)
+        love = CircleButton(self.icon_love, on_click=self.on_click_rating_wrapper(SCORE_LOVE))
+        like = CircleButton(self.icon_like, on_click=self.on_click_rating_wrapper(SCORE_LIKE))
+        neutral = CircleButton(self.icon_neutral, on_click=self.on_click_rating_wrapper(SCORE_NEUTRAL))
+        dislike = CircleButton(self.icon_dislike, on_click=self.on_click_rating_wrapper(SCORE_DISLIKE))
+        hate = CircleButton(self.icon_broken_heart, on_click=self.on_click_rating_wrapper(SCORE_HATE))
 
         button_menu = ft.Container(ft.Row(controls=[hate, dislike, neutral, like, love],
                                           alignment=ft.MainAxisAlignment.SPACE_EVENLY),
@@ -150,7 +155,15 @@ class MainPage:
                                    padding=0,
                                    margin=0.05 * SCREEN_WIDTH)
 
-        content = ft.Container(content=ft.Column(controls=[discover_txt, self.animated_container, button_menu]),
+        skip_button = CircleButtonBase(self.icon_next, on_click=self.on_click_skip)
+        skip_menu = ft.Container(ft.Row(controls=[skip_button],
+                                        alignment=ft.MainAxisAlignment.SPACE_EVENLY),
+                                 width=SCREEN_WIDTH,
+                                 padding=0,
+                                 margin=0.05 * SCREEN_WIDTH)
+
+        content = ft.Container(content=ft.Column(controls=[header, self.animated_container,
+                                                           button_menu, skip_menu]),
                                bgcolor=DARK_RED,
                                padding=ft.padding.only(left=0),
                                width=SCREEN_WIDTH,
