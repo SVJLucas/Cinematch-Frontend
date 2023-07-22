@@ -1,3 +1,11 @@
+# Backend routes
+
+URL = "http://127.0.0.1:8000/"
+LOGIN_ROUTE = URL + "login/"
+LOGIN_USERS_ROUTE = LOGIN_ROUTE + "users"
+USERS_ROUTE = URL + "users"
+RATINGS_ROUTE = URL + "ratings"
+
 #Images paths
 
 IMAGE_LOGO_PATH = "./assets/images/logo.png"

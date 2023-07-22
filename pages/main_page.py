@@ -11,6 +11,16 @@ from controls.effects import gradient_effect, shadow
 from controls.animations import animation
 from controls.headers import header_discover
 
+import requests
+
+
+def send_rating(data, e):
+    movie_id = "-N__dx6H_A782DxPRA_A"
+    data["movie_id"] = movie_id
+    response = requests.post(RATINGS_ROUTE, headers=e.page.session.get("auth_header"), json=data)
+    print(response.status_code, response.json())
+
+
 class MainPage:
 
     def __init__(self, screen):
@@ -95,6 +105,28 @@ class MainPage:
         self.animated_container.content = self.update_card()
         page.update()
 
+    def on_click_love(self, e):
+        page = self.screen.get_page()
+        print("aaaa")
+        data = {"score": 5}
+        send_rating(data, e)
+
+    def on_click_like(self, e):
+        data = {"score": 4}
+        send_rating(data, e)
+
+    def on_click_neutral(self, e):
+        data = {"score": 3}
+        send_rating(data, e)
+
+    def on_click_dislike(self, e):
+        data = {"score": 2}
+        send_rating(data, e)
+
+    def on_click_hate(self, e):
+        data = {"score": 1}
+        send_rating(data, e)
+
     def build(self):
         discover_txt = header_discover()
 
@@ -106,11 +138,11 @@ class MainPage:
 
         self.animated_container = animation(c)
 
-        love = CircleButton(self.icon_love)
-        like = CircleButton(self.icon_like)
-        neutral = CircleButton(self.icon_neutral)
-        dislike = CircleButton(self.icon_dislike)
-        hate = CircleButton(self.icon_broken_heart)
+        love = CircleButton(self.icon_love, on_click=self.on_click_love)
+        like = CircleButton(self.icon_like, on_click=self.on_click_like)
+        neutral = CircleButton(self.icon_neutral, on_click=self.on_click_neutral)
+        dislike = CircleButton(self.icon_dislike, on_click=self.on_click_dislike)
+        hate = CircleButton(self.icon_broken_heart, on_click=self.on_click_hate)
 
         button_menu = ft.Container(ft.Row(controls=[hate, dislike, neutral, like, love],
                                           alignment=ft.MainAxisAlignment.SPACE_EVENLY),

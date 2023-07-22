@@ -8,6 +8,8 @@ from utils.constants import *
 from controls.effects import gradient_effect, gradient_alt
 from controls.animations import rotate, animation
 
+import requests
+
 
 class HomePage:
 
@@ -19,7 +21,7 @@ class HomePage:
         self.image_logo_path = IMAGE_LOGO_PATH
         self.image_homepage_art_path = IMAGE_HOMEPAGE_ART_PATH
 
-    def on_click_button(self, e):
+    def on_click_login(self, e):
         page = self.screen.get_page()
 
         page.route = "/login_page"
@@ -33,7 +35,7 @@ class HomePage:
 
     def build(self):
         login = ft.Row(
-            controls=[LargeButton("Login", on_click=self.on_click_button)],
+            controls=[LargeButton("Login", on_click=self.on_click_login)],
             alignment=ft.MainAxisAlignment.CENTER
         )
 

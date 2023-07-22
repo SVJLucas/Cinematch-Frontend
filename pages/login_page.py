@@ -1,4 +1,6 @@
 import flet as ft
+import requests
+
 from controls.buttons import LargeButton, NextButton
 from flet import Image, Text
 from utils.colors import *
@@ -23,8 +25,21 @@ class LoginPage:
     def on_click_log_in(self, e):
         page = self.screen.get_page()
 
-        page.route = "/choices_page"
-        page.go(page.route)
+        data = {
+            "username": self.email_field.value,
+            "password": self.password_field.value
+        }
+        response = requests.post(LOGIN_USERS_ROUTE, data=data)
+        token = response.json()
+
+        if response.ok:
+            page.session.set("auth_header",
+                             {"Authorization": f"{token['token_type']} {token['access_token']}"})
+            page.route = "/choices_page"
+            page.go(page.route)
+        else:
+            # TODO: show some invalid credentials text
+            pass
 
     def return_home(self, e):
         page = self.screen.get_page()
@@ -60,18 +75,18 @@ class LoginPage:
                                            weight=ft.FontWeight.BOLD)],
                             alignment=ft.MainAxisAlignment.CENTER)
 
-        email_box = ft.Row(controls=[TextField(label="Email",
-                                               hint_text="Email address",
-                                               icon=ft.icons.ACCOUNT_CIRCLE)],
-                           alignment=ft.MainAxisAlignment.CENTER,
-                           )
+        self.email_field = TextField(label="Email",
+                                     hint_text="Email address",
+                                     icon=ft.icons.ACCOUNT_CIRCLE)
+        email_box = ft.Row(controls=[self.email_field],
+                           alignment=ft.MainAxisAlignment.CENTER)
 
-        password_box = ft.Row(controls=[TextField(label="Password",
-                                                  hint_text="Enter password...",
-                                                  password=True,
-                                                  icon=ft.icons.KEY)],
-                              alignment=ft.MainAxisAlignment.CENTER,
-                              )
+        self.password_field = TextField(label="Password",
+                                        hint_text="Enter password...",
+                                        password=True,
+                                        icon=ft.icons.KEY)
+        password_box = ft.Row(controls=[self.password_field],
+                              alignment=ft.MainAxisAlignment.CENTER)
 
         empty_space = ft.Container(width=SCREEN_WIDTH, height=0.10 * SCREEN_HEIGHT)
 
