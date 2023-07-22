@@ -2,7 +2,7 @@ import flet as ft
 from controls.buttons import LargeButton, NextButton
 from flet import Image, Text
 from utils.colors import *
-from utils.measures import SCREEN_HEIGHT, SCREEN_WIDTH
+from utils.measures import SCREEN_HEIGHT, SCREEN_WIDTH, TOP_PADDING
 from utils.constants import *
 from controls.effects import gradient_effect
 from controls.inputs import TextField
@@ -164,7 +164,7 @@ class SignUpPage:
 
         c = ft.Container(content=concat_col,
                          bgcolor=DARK_RED,
-                         padding=0,
+                         padding=ft.padding.only(left=0, top=TOP_PADDING),
                          width=SCREEN_WIDTH,
                          height=SCREEN_HEIGHT)
 

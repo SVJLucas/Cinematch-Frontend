@@ -3,7 +3,7 @@ from flet import FloatingActionButton, Text
 from controls.buttons import LargeButton
 from flet import Image, Container, Row, Column
 from utils.colors import *
-from utils.measures import SCREEN_HEIGHT, SCREEN_WIDTH
+from utils.measures import SCREEN_HEIGHT, SCREEN_WIDTH, TOP_PADDING
 from utils.constants import *
 from controls.effects import gradient_effect, gradient_alt
 from controls.animations import rotate, animation
@@ -64,14 +64,12 @@ class HomePage:
                                                    )],
                             alignment=ft.MainAxisAlignment.CENTER)
 
-        empty_space = ft.Container(width=SCREEN_WIDTH, height=0.1 * SCREEN_HEIGHT)
         space_after_img = ft.Container(width=SCREEN_WIDTH, height=0.05 * SCREEN_HEIGHT)
 
         img_center = Image(src=self.image_homepage_art_path)
 
         col = ft.Column(width=SCREEN_WIDTH,
                         controls=[white_logo,
-                                  empty_space,
                                   img_center,
                                   space_after_img,
                                   login,
@@ -82,7 +80,7 @@ class HomePage:
 
         c = ft.Container(content=col,
                          bgcolor=DARK_RED,
-                         padding=0,
+                         padding=ft.padding.only(left=0, top=TOP_PADDING),
                          width=SCREEN_WIDTH,
                          height=SCREEN_HEIGHT)
 

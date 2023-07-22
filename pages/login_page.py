@@ -4,7 +4,7 @@ import requests
 from controls.buttons import LargeButton, NextButton
 from flet import Image, Text
 from utils.colors import *
-from utils.measures import SCREEN_HEIGHT, SCREEN_WIDTH
+from utils.measures import SCREEN_HEIGHT, SCREEN_WIDTH, TOP_PADDING
 from utils.constants import *
 from controls.effects import gradient_effect
 from controls.inputs import TextField
@@ -95,8 +95,6 @@ class LoginPage:
         password_box = ft.Row(controls=[self.password_field],
                               alignment=ft.MainAxisAlignment.CENTER)
 
-        empty_space = ft.Container(width=SCREEN_WIDTH, height=0.10 * SCREEN_HEIGHT)
-
         login = ft.Row(
             controls=[NextButton("Login", on_click=self.on_click_log_in)],
             alignment=ft.MainAxisAlignment.CENTER
@@ -117,7 +115,6 @@ class LoginPage:
         col = ft.Column(width=SCREEN_WIDTH,
                         height=0.75 * SCREEN_HEIGHT,
                         controls=[white_logo,
-                                  empty_space,
                                   login_text,
                                   email_box,
                                   password_box,
@@ -137,7 +134,7 @@ class LoginPage:
 
         c = ft.Container(content=concat_col,
                          bgcolor=DARK_RED,
-                         padding=0,
+                         padding=ft.padding.only(left=0, top=TOP_PADDING),
                          width=SCREEN_WIDTH,
                          height=SCREEN_HEIGHT)
 

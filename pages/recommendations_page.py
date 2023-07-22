@@ -5,7 +5,7 @@ from flet import FloatingActionButton, Text
 from controls.buttons import CircleButton, CircleButtonBase
 from flet import Image, Container, Row, Column
 from utils.colors import *
-from utils.measures import SCREEN_HEIGHT, SCREEN_WIDTH
+from utils.measures import SCREEN_HEIGHT, SCREEN_WIDTH, TOP_PADDING
 from utils.fonts import *
 from utils.constants import *
 from controls.effects import gradient_effect, shadow
@@ -208,7 +208,7 @@ class RecommendationsPage:
         content = ft.Container(content=ft.Column(controls=[header, self.animated_container,
                                                            button_menu, skip_menu]),
                                bgcolor=DARK_RED,
-                               padding=ft.padding.only(left=0),
+                               padding=ft.padding.only(left=0, top=TOP_PADDING),
                                width=SCREEN_WIDTH,
                                height=SCREEN_HEIGHT,
                                shadow=shadow)

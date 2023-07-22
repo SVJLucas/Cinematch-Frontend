@@ -3,7 +3,7 @@ import flet as ft
 from flet import Card, Text, Container
 from utils.fonts import *
 from utils.colors import *
-from utils.measures import SCREEN_WIDTH, SCREEN_HEIGHT
+from utils.measures import SCREEN_WIDTH, SCREEN_HEIGHT, TOP_PADDING
 from utils.constants import movie_genres
 from controls.headers import header_discover, footer_logo
 from controls.buttons import GenreButton, NextButton, CircleButton
@@ -110,7 +110,7 @@ class TutorialPage:
 
         content = Container(content=ft.Column(controls=[column_upper, column_lower]),
                             bgcolor=DARK_RED,
-                            padding=ft.padding.only(left=0),
+                            padding=ft.padding.only(left=0, top=TOP_PADDING),
                             width=SCREEN_WIDTH,
                             height=SCREEN_HEIGHT,
                             )
