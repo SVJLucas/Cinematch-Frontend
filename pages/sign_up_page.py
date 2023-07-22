@@ -33,11 +33,23 @@ class SignUpPage:
 
         response = requests.post(USERS_ROUTE, json=data)
 
-        print(response.status_code, response.json())
-
         if response.ok:
-            page.route = "/choices_page"
-            page.go(page.route)
+            data = {
+                "username": self.email_field.value,
+                "password": self.password_field.value
+            }
+            response = requests.post(LOGIN_USERS_ROUTE, data=data)
+            token = response.json()
+            if response.ok:
+                page.session.set("auth_header",
+                                 {"Authorization": f"{token['token_type']} {token['access_token']}"})
+                page.route = "/choices_page"
+                page.go(page.route)
+            else:
+                # Account created, but a mysterious error happened
+                # TODO: make a better logic for this
+                page.route = "/homepage"
+                page.go(page.route)
         else:
             # TODO: show some invalid credentials text
             pass
