@@ -6,6 +6,8 @@ from pages.choices_page import ChoicesPage
 from pages.tutorial_page import TutorialPage
 from pages.login_page import LoginPage
 from pages.sign_up_page import SignUpPage
+from pages.recommendations_page import RecommendationsPage
+
 
 class Router:
 
@@ -61,6 +63,13 @@ class Router:
 
         page.views.append(ft.View("/sign_up_page", [second_page.build()]))
 
+    def init_recommendations_page(self):
+        page = self.screen.get_page()
+
+        second_page = RecommendationsPage(self.screen)
+
+        page.views.append(ft.View("/recommendations_page", [second_page.build()]))
+
     def route_change(self, route):
         page = self.screen.get_page()
 
@@ -82,6 +91,9 @@ class Router:
 
         if page.route == "/sign_up_page":
             self.init_sign_up_page()
+
+        if page.route == "/recommendations_page":
+            self.init_recommendations_page()
 
     def rout_init(self, route: str):
         page = self.screen.get_page()

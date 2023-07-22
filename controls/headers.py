@@ -17,6 +17,16 @@ def header_discover():
         margin=10
     )
 
+def header_profile():
+    return ft.Container(
+        Text("Recommendations",
+             font_family=DEFAULT,
+             size=30,
+             weight=ft.FontWeight.BOLD,
+             color=WHITE),
+        margin=10
+    )
+
 
 def footer_logo():
 
