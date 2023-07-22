@@ -18,7 +18,6 @@ import requests
 
 def send_rating(data, e):
     response = requests.post(RATINGS_URL, headers=e.page.session.get("auth_header"), json=data)
-    print("Rating sent:", response.status_code, response.json())
 
 
 class MainPage:
@@ -109,7 +108,6 @@ class MainPage:
 
     def update_movie(self):
         movie = get_non_rated_movie()
-        print("MOVIEAAA", movie)
         self.card_title = movie["title"]
         self.card_genres = ' . '.join([genre["name"] for genre in movie["genres"]])
         self.card_poster = movie["image_url"]

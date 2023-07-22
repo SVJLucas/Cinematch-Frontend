@@ -22,7 +22,6 @@ def get_non_rated_movie():
             if movie["movie_id"] not in rated_movies:
                 movie["genres"] = get_genres_from_movie(movie["movie_id"])
                 eligible_movie_found = True
-        print("Selected movie:", movie)
 
         if not eligible_movie_found:
             movie["genres"] = [{"name": "You rated all available movies"}]
@@ -32,5 +31,4 @@ def get_non_rated_movie():
 
 def get_genres_from_movie(movie_id):
     genres = requests.get(GENRES_BY_MOVIE_URL + str(movie_id))
-    print("Genres:", genres.status_code, genres.json())
     return genres.json()

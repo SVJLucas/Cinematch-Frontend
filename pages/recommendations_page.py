@@ -19,7 +19,6 @@ def send_rating(data, e):
     movie_id = "-N__dx6H_A782DxPRA_A"
     data["movie_id"] = movie_id
     response = requests.post(RATINGS_URL, headers=e.page.session.get("auth_header"), json=data)
-    print(response.status_code, response.json())
 
 
 class RecommendationsPage:
