@@ -22,7 +22,7 @@ class SignUpPage:
         self.image_homepage_art_path = IMAGE_HOMEPAGE_ART_PATH
         self.image_footer = IMAGE_LOGIN
 
-    def on_click_log_in(self, e):
+    def on_click_sign_up(self, e):
         page = self.screen.get_page()
 
         data = {
@@ -53,6 +53,12 @@ class SignUpPage:
         else:
             # TODO: show some invalid credentials text
             pass
+
+    def on_click_go_to_login(self, e):
+        page = self.screen.get_page()
+
+        page.route = "/login_page"
+        page.go(page.route)
 
     def return_home(self, e):
         page = self.screen.get_page()
@@ -117,7 +123,7 @@ class SignUpPage:
                                       )
 
         sign_up_button = ft.Row(
-            controls=[NextButton("Sign up", on_click=self.on_click_log_in)],
+            controls=[NextButton("Sign up", on_click=self.on_click_sign_up)],
             alignment=ft.MainAxisAlignment.CENTER
         )
 
@@ -129,7 +135,7 @@ class SignUpPage:
                             alignment=ft.MainAxisAlignment.CENTER)
 
         login_button = ft.Row(
-            controls=[NextButton("Log in", on_click=self.on_click_log_in)],
+            controls=[NextButton("Log in", on_click=self.on_click_go_to_login)],
             alignment=ft.MainAxisAlignment.CENTER
         )
 
